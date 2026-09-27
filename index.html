@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>호월 · 虎月</title>
+<style>
+:root{--bg:#09080d;--card:#15121a;--card2:#1d1720;--line:#2c2430;--t:#f7f0f1;--m:#a89da6;--r:#bd7890;--g:#d9bb80}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#281827 0,#09080d 42%);color:var(--t);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}button,input{font:inherit}button{cursor:pointer}
+.wrap{max-width:760px;margin:auto;padding:24px 18px 100px}.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:800;letter-spacing:.16em}.sub{color:var(--m);font-size:12px;margin-top:4px}.hero{padding:46px 4px 26px}.tiger{font-size:64px;filter:drop-shadow(0 12px 28px #000)}h1{font-size:42px;line-height:1.08;margin:12px 0}.hero p{color:var(--m);line-height:1.7}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{background:linear-gradient(145deg,var(--card),#100e14);border:1px solid var(--line);border-radius:18px;padding:18px;text-align:left;color:var(--t)}.card b{display:block;font-size:18px;margin:8px 0}.card span{color:var(--m);font-size:12px}.panel{background:rgba(21,18,26,.9);border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:16px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{color:var(--m);font-size:12px}input{width:100%;margin-top:6px;background:#0e0c12;border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--t)}.cta{width:100%;border:0;border-radius:14px;padding:14px;margin-top:14px;background:linear-gradient(135deg,#d9bb80,#b57b91);color:#160f13;font-weight:800}.pill{display:inline-block;border:1px solid #44343d;border-radius:999px;padding:6px 9px;color:#dbcbd0;font-size:12px;margin:3px}.price s{color:#756b74}.price strong{font-size:30px;color:var(--g)}.locked{filter:blur(5px);user-select:none}.qa{display:none}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#eee;color:#111;padding:12px 16px;border-radius:999px;font-size:13px}.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(9,8,13,.92);border-top:1px solid var(--line);display:flex;justify-content:center;gap:34px;padding:12px;color:var(--m);font-size:12px}
+@media(max-width:520px){h1{font-size:34px}.grid{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}}
+</style></head>
+<body><main class="wrap">
+<div class="top"><div><div class="logo">虎月 · 호월</div><div class="sub">당신의 흐름을 읽는 시간</div></div><div>☾</div></div>
+<section class="hero"><div class="tiger">🐯</div><h1>당신만을 위한<br><em>30장의 이야기</em></h1><p>생년월일과 출생시간을 바탕으로 흐름을 정리하고, 궁금한 부분은 리포트 안에서 바로 질문해보세요.</p></section>
+<div class="grid" id="cats"></div>
+<section class="panel">
+<h2 id="title">프로필을 입력하세요</h2>
+<div class="row"><label>이름<input id="name" placeholder="이름"></label><label>생년월일<input id="date" type="date"></label></div>
+<div class="row" style="margin-top:10px"><label>출생시간<input id="time" type="time" value="12:00"></label><label>상대 이름(이름궁합)<input id="partner" placeholder="선택"></label></div>
+<button class="cta" onclick="makeReport()">내 리포트 만들기</button>
+</section>
+<section class="panel" id="report" style="display:none">
+<div class="pill" id="catpill"></div><h2 id="rtitle"></h2><p id="intro"></p>
+<div id="stats"></div><hr style="border-color:var(--line);border-width:1px 0 0;margin:18px 0">
+<h3>30장 리포트 미리보기</h3><div id="pages"></div>
+<div class="price"><s>₩39,900</s> <strong>₩19,900</strong><div class="sub">프로모션가</div></div>
+<button class="cta" onclick="toast('결제 서버 연결 전 테스트 화면입니다.')">30장 전체 보기</button>
+<div class="panel qa" id="qa"><h3>이 부분이 궁금한가요?</h3><p class="sub">질문 1회 500원 · 짧고 간략하게 답변</p><input id="question" placeholder="궁금한 내용을 입력하세요"><button class="cta" onclick="toast('질문 결제 기능은 PG 연결 후 활성화됩니다.')">₩500 질문하기</button></div>
+</section>
+</main><nav class="nav"><span>홈</span><span>리포트</span><span>질문</span><span>MY</span></nav>
+<script>
+const data={jami:['✦','자미두수','명궁 · 신궁 · 12궁','명궁을 중심으로 삶의 구조와 흐름을 읽습니다.'],overall:['◐','총운','기질 · 흐름 · 전환','현재의 흐름과 앞으로의 균형점을 정리합니다.'],reunion:['♡','재회운','인연 · 거리 · 대화','관계의 흐름과 서로의 거리감을 살펴봅니다.'],money:['₩','금전운','수입 · 지출 · 기회','돈을 대하는 패턴과 흐름을 정리합니다.'],love:['♥','연애운','매력 · 표현 · 관계','관계에서 드러나는 표현과 상호작용을 살펴봅니다.'],name:['∞','이름궁합','조화 · 끌림 · 대화','두 이름의 관계 포인트를 정리합니다.']};
+let selected='overall';
+const cats=document.getElementById('cats');
+Object.entries(data).forEach(([k,v])=>{const b=document.createElement('button');b.className='card';b.innerHTML='<span>'+v[0]+'</span><b>'+v[1]+'</b><span>'+v[2]+'</span>';b.onclick=()=>{selected=k;document.getElementById('title').textContent=v[1]+' 리포트';document.querySelectorAll('.card').forEach(x=>x.style.outline='none');b.style.outline='1px solid #bd7890'};cats.appendChild(b)});
+function makeReport(){const n=document.getElementById('name').value||'회원';const d=document.getElementById('date').value||'미입력';const t=document.getElementById('time').value||'12:00';const v=data[selected];document.getElementById('report').style.display='block';document.getElementById('catpill').textContent=v[0]+' '+v[1];document.getElementById('rtitle').textContent=n+'님의 '+v[1];document.getElementById('intro').textContent=v[3];document.getElementById('stats').innerHTML='<span class="pill">'+d+'</span><span class="pill">'+hour(t)+'</span><span class="pill">개인 맞춤</span>';let p='';for(let i=1;i<=30;i++){p+='<div class="panel '+(i>2?'locked':'')+'"><b>'+i+'장 · '+v[2].split(' · ')[(i-1)%3]+'</b><p>'+n+'님의 입력값을 기준으로 이 영역의 핵심 포인트와 흐름을 정리하는 페이지입니다. 실제 출시 버전에서는 검증된 계산 결과를 기반으로 개인화된 해석이 표시됩니다.</p>'+(i===2?'<button class="cta" onclick="document.getElementById(\'qa\').style.display=\'block\'">이 부분 질문하기 · ₩500</button>':'')+'</div>'}document.getElementById('pages').innerHTML=p;scrollTo({top:document.getElementById('report').offsetTop-10,behavior:'smooth'})}
+function hour(x){const h=+x.split(':')[0];const names=['자시(子時)','축시(丑時)','인시(寅時)','묘시(卯時)','진시(辰時)','사시(巳時)','오시(午時)','미시(未時)','신시(申時)','유시(酉時)','술시(戌時)','해시(亥時)'];let i=h===23||h===0?0:Math.floor((h+1)/2)%12;const st=['23:00–01:00','01:00–03:00','03:00–05:00','05:00–07:00','07:00–09:00','09:00–11:00','11:00–13:00','13:00–15:00','15:00–17:00','17:00–19:00','19:00–21:00','21:00–23:00'];return x+' · '+names[i]+' · '+st[i]}
+function toast(x){const d=document.createElement('div');d.className='toast';d.textContent=x;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+</script></body></html>
